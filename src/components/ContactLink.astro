@@ -1,0 +1,4 @@
+---
+const {business,kind='call',label,class:cls='button button-primary',message}=Astro.props; const digits=(business.whatsappNumber||'').replace(/\D/g,''); const configured=kind==='whatsapp'?digits.length>=8:kind==='call'?Boolean(business.phone):Boolean(business.email); const href=kind==='whatsapp'?`https://wa.me/${digits}?text=${encodeURIComponent(message||business.whatsappGreeting)}`:kind==='call'?`tel:${business.phone.replace(/[^+\d]/g,'')}`:`mailto:${business.email}?subject=${encodeURIComponent('Plumbing service enquiry')}`;
+---
+{configured&&<a class={cls} href={href} target={kind==='whatsapp'?'_blank':undefined} rel={kind==='whatsapp'?'noopener noreferrer':undefined}>{label||'Contact us'} <span aria-hidden="true">↗</span></a>}
